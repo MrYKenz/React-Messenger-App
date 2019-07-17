@@ -44,6 +44,7 @@ class App extends Component {
   }
 
   joinRoom = (id) => {
+    this.setState({ message: [] }) // clear messages once joining new room
     this.currentUser.subscribeToRoomMultipart({
       roomId: typeof id === "undefined" ? "19447903" : id,
       hooks: {
