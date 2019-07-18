@@ -5,10 +5,14 @@ export default function RoomList(props) {
     return (
         <div className="room-list">
             <h2>Rooms: </h2>
-            <ul>
-                {props.rooms.map(room => 
-                <Room key={room.id} name={room.name} joinRoom={props.joinRoom}/>)}
-            </ul>
+                {props.rooms.map(room =>
+                    <li key={room.id}>
+                        <Room id={room.id} 
+                        name={room.name} 
+                        joinRoom={props.joinRoom} 
+                        current={props.current}/>
+                    </li>
+                )}
         </div>
     )
 }

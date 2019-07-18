@@ -9,6 +9,7 @@ import './App.css';
 class App extends Component {
 
   state = {
+    currentRoom: null,
     messages: [],
     joinableRooms: [],
     joinedRooms: []
@@ -17,22 +18,21 @@ class App extends Component {
   componentDidMount() {
     const chatManager = new ChatManager({
         instanceLocator,
-        userId: 'john',
+        userId: 'sam',
         tokenProvider: new TokenProvider({
           url: tokenUrl
         })
     })
-
     chatManager.connect()
     .then(currentUser => {
-      this.currentUser = currentUser // make accesable to sendMessage func
-      this.showRooms()
+      this.currentUser = currentUser // make accesable to other methods
+      this.getRooms()
       this.joinRoom()
     })
     .catch(err => console.log(`Error on connecting: ${err}`))
   }
 
-  showRooms = () => {
+  getRooms = () => {
     this.currentUser.getJoinableRooms()
     .then(joinableRooms => {
         this.setState({
@@ -44,9 +44,9 @@ class App extends Component {
   }
 
   joinRoom = (id) => {
-    this.setState({ message: [] }) // clear messages once joining new room
+    this.setState({ messages: [] }) // clear messages once joining new room
     this.currentUser.subscribeToRoomMultipart({
-      roomId: typeof id === "undefined" ? "19447903" : id,
+      roomId: typeof id === "undefined" ? this.currentUser.rooms[0].id : id, // removes undefined error & joins first room if none joined
       hooks: {
         onMessage: message => {
           // console.log(message.parts[0].payload.content)
@@ -55,14 +55,19 @@ class App extends Component {
           })
         }
       },
-      messageLimit: 3 //  limit no. of msgs on screen
+      messageLimit: 5 //  limit no. of msgs on screen
     })
+    .then(room => {
+      this.setState ({currentRoom: room.id})
+      // this.getRooms()
+    })
+    .catch(err => console.log(`Error on joining room: ${err}`))
   }
 
 
   sendMessage = (text) => {
     this.currentUser.sendSimpleMessage({
-      roomId: "19447903",
+      roomId: this.state.currentRoom,
       text
     })
   }
@@ -74,8 +79,9 @@ class App extends Component {
       <div className="App">
         <MessageList messages={this.state.messages}/>
         <InputMessage sendMessage={this.sendMessage}/>
-        <RoomList rooms={[...this.state.joinableRooms, 
-        ...this.state.joinedRooms]} joinRoom={this.joinRoom}/>
+        <RoomList current={this.state.currentRoom} 
+        rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} 
+        joinRoom={this.joinRoom}/>
       </div>
     );
   }
