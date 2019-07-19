@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ChatManager, TokenProvider} from '@pusher/chatkit-client';
 import { tokenUrl, instanceLocator } from './config';
+import Users from './components/Users';
 import MessageList from './components/MessageList';
 import InputMessage from './components/InputMessage';
 import RoomList from './components/RoomList';
@@ -10,10 +11,11 @@ import './App.css';
 class App extends Component {
 
   state = {
-    currentRoom: null,
     messages: [],
     joinableRooms: [],
-    joinedRooms: []
+    joinedRooms: [],
+    currentRoom: null,
+    availableUsers: [],
   }
 
   componentDidMount() {
@@ -24,24 +26,21 @@ class App extends Component {
           url: tokenUrl
         })
     })
-    chatManager.connect()
-    .then(currentUser => {
+    chatManager.connect().then(currentUser => {
       this.currentUser = currentUser // make accesable to other methods
-      this.getRooms()
+      this.showRooms()
       this.joinRoom()
-    })
-    .catch(err => console.log(`Error on connecting: ${err}`))
+    }).catch(err => console.log(`Error on connecting: ${err}`))
   }
 
-  getRooms = () => {
+  showRooms = () => {
     this.currentUser.getJoinableRooms()
     .then(joinableRooms => {
         this.setState({
           joinableRooms,
           joinedRooms: this.currentUser.rooms
         })
-      })
-    .catch(err => console.log(`Error getting joinable rooms: ${err}`))
+      }).catch(err => console.log(`Error getting joinable rooms: ${err}`))
   }
 
   joinRoom = (id) => {
@@ -57,12 +56,12 @@ class App extends Component {
         }
       },
       messageLimit: 5 //  limit no. of msgs on screen
-    })
-    .then(room => {
-      this.setState ({currentRoom: room.id})
-      // this.getRooms()
-    })
-    .catch(err => console.log(`Error on joining room: ${err}`))
+    }).then(room => {
+      this.setState ({
+        currentRoom: room.id,
+        availableUsers: [...room.users]
+      })
+    }).catch(err => console.log(`Error on joining room: ${err}`))
   }
 
   // called in InputMessage component
@@ -74,18 +73,24 @@ class App extends Component {
   }
   
   // called in InputRoom component
-  createRoom = (room) => {
-    console.log(room)
-    // this.currentUser.something( {
-
-    // })
+  createRoom = (roomName) => {
+    this.currentUser.createRoom({
+      name: roomName,
+      private: false
+    }).then(room => {
+      this.joinRoom(room.id)
+      this.showRooms()
+    }).catch(err => console.log(`Error creating room: ${err}`))
   } 
 
   render() {
       // console.log(this.state.messages);
       // console.log(this.state.joinedRooms);
+      // console.log(this.state.availableUsers)
+      // console.log(this.state.joinableRooms.map(room=>room.name))
       return (
       <div className="App">
+        <Users users={this.state.availableUsers}/>
         <MessageList messages={this.state.messages}/>
         <InputMessage createMessage={this.createMessage}/>
         <RoomList current={this.state.currentRoom} 

@@ -8,7 +8,9 @@ I have used React's new 16.8 Hook update of useState() to create a functional co
 import { useState } from 'react'
 const [state, setState] = useState();
 ``` 
-  
 
-For Future: The new useEffect() method could be used to replace componentDidMount() in the App Class.
+**For Future**: The new useEffect() method could be used to replace componentDidMount() in the App Class.
 
+```javascript
+=useEffect();
+``` 
