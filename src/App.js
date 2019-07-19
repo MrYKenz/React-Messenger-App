@@ -3,7 +3,8 @@ import {ChatManager, TokenProvider} from '@pusher/chatkit-client';
 import { tokenUrl, instanceLocator } from './config';
 import MessageList from './components/MessageList';
 import InputMessage from './components/InputMessage';
-import RoomList from './components/RoomList'
+import RoomList from './components/RoomList';
+import InputRoom from './components/InputRoom';
 import './App.css';
 
 class App extends Component {
@@ -64,13 +65,21 @@ class App extends Component {
     .catch(err => console.log(`Error on joining room: ${err}`))
   }
 
-
-  sendMessage = (text) => {
+  // called in InputMessage component
+  createMessage = (text) => {
     this.currentUser.sendSimpleMessage({
       roomId: this.state.currentRoom,
       text
     })
   }
+  
+  // called in InputRoom component
+  createRoom = (room) => {
+    console.log(room)
+    // this.currentUser.something( {
+
+    // })
+  } 
 
   render() {
       // console.log(this.state.messages);
@@ -78,10 +87,11 @@ class App extends Component {
       return (
       <div className="App">
         <MessageList messages={this.state.messages}/>
-        <InputMessage sendMessage={this.sendMessage}/>
+        <InputMessage createMessage={this.createMessage}/>
         <RoomList current={this.state.currentRoom} 
         rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} 
         joinRoom={this.joinRoom}/>
+        <InputRoom createRoom={this.createRoom}/>
       </div>
     );
   }

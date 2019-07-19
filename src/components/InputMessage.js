@@ -9,12 +9,12 @@ export default function InputMessage(props) {
 
     const handleSubmit = event => {
         event.preventDefault();
-        props.sendMessage(message); // this.state.message
+        props.createMessage(message); // this.state.message
         setMessage('');
     }
 
     return (
-            <form className="input-form" onSubmit={handleSubmit}>
+            <form className="input-msg" onSubmit={handleSubmit}>
                 <input 
                     type="text"
                     placeholder="Enter your message here..." 
