@@ -6,7 +6,6 @@ import MessageList from './components/MessageList';
 import InputMessage from './components/InputMessage';
 import RoomList from './components/RoomList';
 import InputRoom from './components/InputRoom';
-import './App.css';
 
 class App extends Component {
 
@@ -85,11 +84,8 @@ class App extends Component {
 
   render() {
       // console.log(this.state.messages);
-      // console.log(this.state.joinedRooms);
-      // console.log(this.state.availableUsers)
-      // console.log(this.state.joinableRooms.map(room=>room.name))
       return (
-      <div className="App">
+      <div className="app">
         <Users users={this.state.availableUsers}/>
         <MessageList messages={this.state.messages}/>
         <InputMessage createMessage={this.createMessage}/>

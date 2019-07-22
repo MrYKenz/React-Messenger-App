@@ -13,13 +13,14 @@ export default function InputRoom(props) {
     }
 
     return (
-            <form className="input-room" onSubmit={handleSubmit}>
+            <form className="input-room" 
+            onSubmit={handleSubmit}>
                 <input 
                     type="text"
-                    placeholder="Create a room..." 
+                    placeholder="New room..." 
                     value={room}
                     onChange={handleChange}/>
-                <button id="add-room-btn">+</button>
+                <button>+</button>
             </form>
         )
     }

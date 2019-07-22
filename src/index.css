@@ -1,13 +1,147 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+::-webkit-scrollbar {
+  background: #ffecd2; 
 }
+::-webkit-scrollbar-track {
+  background: #ffecd2; 
+}
+::-webkit-scrollbar-thumb {
+  background: #ffc778; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffd395; 
+}
+
+/* main component w/ grid  */
+.app {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 60px;
+  grid-template-areas:
+    "ml ml ml ml rl rl"
+    "ml ml ml ml rl rl"
+    "ml ml ml ml rl rl"
+    "ml ml ml ml rl rl"
+    "ml ml ml ml ul ul"
+    "im im im im ir ir";
+
+}
+/* child components */
+.users-list {
+  grid-area: ul;
+  background-color: #ffb347;
+  color: #ffffff;
+  padding-left: 10px;
+  padding-right: 20px;
+  overflow-y: scroll;
+}
+.room-list {
+  grid-area: rl;
+  background-color: #ffab34;
+  color: #fff0db;
+  padding: 10px;
+  list-style-type: none;
+  overflow-y: scroll;
+}
+.room-list h2 {
+  color: #ffffff;
+  margin: 2px;
+  padding-bottom: 10px;
+}
+.message-list {
+  grid-area: ml;
+  padding: 10px;
+  overflow-y: scroll;
+}
+.message-list h2 {
+  color: #fab235;
+  margin: 2px;
+}
+.input-msg {
+  grid-area: im;
+  display: flex;
+}
+.input-msg input{
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+  padding-left: 10px;
+  border: 0;
+  background-color: #fff7e9;
+  color: #ec9703;
+}
+.input-msg input::placeholder{
+  color: #eccc94;
+}
+.input-room {
+  grid-area: ir;
+  display: flex;
+}
+.input-room input {
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+  padding-left: 10px;
+  border: 0;
+  background-color: #ffeac8;
+  color: #d88900;
+}
+.input-room input::placeholder{
+  color: #f0c376;
+}
+.input-room button {
+  border: 0;
+  width: 80px;
+  font-size: 2.5rem;
+  background-color: #ffa811;
+  color: #fff1da;
+}
+
+/* subchild components */
+.room {
+  background: none;
+  border: none;
+  color: #fff0db;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 3px;
+}
+.room-current {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-align: left;
+  font-weight: bold;
+  padding: 3px;
+}
+.room:focus {
+  outline: none;
+}
+.room-current:focus {
+  outline: none;
+}
+.username {
+  color: #f29900;
+  text-transform: uppercase;
+}
+.text {
+  background-color: #ffa811;
+  color: #ffffff;
+  margin-left: 5px;
+  width: fit-content;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 20px;
+}
+
+

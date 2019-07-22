@@ -1,6 +1,5 @@
 # API Key
 .env
-config.js
 
 # dependencies
 /node_modules
