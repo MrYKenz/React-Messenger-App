@@ -18,10 +18,10 @@ class App extends Component {
 
   componentDidMount() {
     const chatManager = new ChatManager({
-        instanceLocator: process.env.LOCATOR,
+        instanceLocator: process.env.REACT_APP_LOCATOR,
         userId: 'sam',
         tokenProvider: new TokenProvider({
-          url: process.env.TOKEN
+          url: process.env.REACT_APP_TOKEN
         })
     })
     chatManager.connect().then(currentUser => {
