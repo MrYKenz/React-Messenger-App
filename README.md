@@ -12,5 +12,8 @@ const [state, setState] = useState();
 **For Future**: The new useEffect() method could be used to replace componentDidMount() in the App Class.
 
 ```javascript
-=useEffect();
+useEffect();
 ``` 
+### Application Diagram 
+
+![components layout](https://github.com/MrYKenz/React-Messenger-App/blob/master/messenger_app_layout.jpg)
