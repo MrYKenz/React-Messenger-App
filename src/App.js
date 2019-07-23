@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
-import { tokenUrl, instanceLocator } from './config';
 import Users from './components/Users';
 import MessageList from './components/MessageList';
 import InputMessage from './components/InputMessage';
@@ -19,10 +18,10 @@ class App extends Component {
 
   componentDidMount() {
     const chatManager = new ChatManager({
-        instanceLocator,
+        instanceLocator: process.env.LOCATOR,
         userId: 'sam',
         tokenProvider: new TokenProvider({
-          url: tokenUrl
+          url: process.env.TOKEN
         })
     })
     chatManager.connect().then(currentUser => {
