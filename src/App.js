@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ChatManager, TokenProvider} from '@pusher/chatkit-client';
+import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
 import { tokenUrl, instanceLocator } from './config';
 import Users from './components/Users';
 import MessageList from './components/MessageList';
