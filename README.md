@@ -1,4 +1,4 @@
-# React-Messenger-App :incoming_envelope:
+# React-Messenger-App :envelope:
 
 React messenger app using the Chatkit API (https://pusher.com/chatkit)
 
@@ -19,7 +19,7 @@ const [state, setState] = useState();
 :warning: **Note:**
 Must have REACT_APP_ before environment variables to use process.env in React
 
-**For Future**: The useEffect() method could be used to replace componentDidMount() in the App component to turn it into a functional component.
+:memo: **For Future:** The useEffect() method could be used to replace componentDidMount() in the App component to turn it into a functional component.
 
 ```javascript
 useEffect();
